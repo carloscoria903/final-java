@@ -5,7 +5,8 @@ public class Proveedor extends Persona{
     private CuentaCorriente ctacte;
 
     public Proveedor(int dni, boolean activo, String nombres, String apellidos, String telefono, String direccion, Provincia provincia, String localidad, LocalDate fechaNacimiento, Sexo sexo, CuentaCorriente ctacte) {
-        super();
+        super(dni, activo, nombres, apellidos, telefono, direccion,
+                provincia, localidad, fechaNacimiento, sexo);
         this.ctacte = ctacte;
     }
 

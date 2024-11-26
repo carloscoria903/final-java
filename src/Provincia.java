@@ -31,5 +31,16 @@ public enum Provincia {
       public String optenerProvincia(){
         return descripcionProvincia;
        }
-}
 
+
+      public static Provincia fromInt(int opcion) throws Excepciones {
+
+       if (opcion < 1 || opcion > values().length) {
+        throw new Excepciones("opcion invalida. por favor elija un numero entre 1 y " + values().length + ".");
+       }
+       return values()[opcion - 1];
+      }
+
+
+
+}

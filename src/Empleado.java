@@ -8,7 +8,8 @@ public class Empleado extends Persona{
     private double salario;
 
     public Empleado(int dni, boolean activo, String nombres, String apellidos, String telefono, String direccion, Provincia provincia, String localidad, LocalDate fechaNacimiento, Sexo sexo, LocalDate fechaIngreso, LocalDate fechaEgreso, int legajo, double salario) {
-        super();
+        super(dni, activo, nombres, apellidos, telefono, direccion,
+                provincia, localidad, fechaNacimiento, sexo);
         this.fechaIngreso = fechaIngreso;
         this.fechaEgreso = fechaEgreso;
         this.legajo = legajo;

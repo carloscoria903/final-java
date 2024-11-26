@@ -12,4 +12,12 @@ public enum Sexo {
     public String optenerSexo(){
         return descripcionSexo;
     }
+
+    public static Sexo fromInt(int opcion) throws Excepciones {
+        if (opcion < 1 || opcion > values().length) {
+            throw new Excepciones("opcion invalida. elija un numero entre 1 y " + values().length + ".");
+        }
+        return values()[opcion - 1];
+    }
+
 }

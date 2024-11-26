@@ -4,24 +4,46 @@ public class Main {
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
+        String rutaCarpeta = "C:\\Projectos en java\\Final-java-projecto-1\\CarpetaDeArchivo\\";
+        String rutaArchivo = rutaCarpeta + "Archivo1.txt";
+        //crear la carpeta
+        Archivos.crearCarpeta(rutaCarpeta);
+        //crear el archivo dentro de esa carpeta
+        Archivos.crearArchivoTXT(rutaArchivo);
 
-        Archivos.crearArchivo_Y_Carpeta();
+        Persona persona = new Persona();
+        Scanner entrada = new Scanner(System.in);
+        boolean salir = false;
 
-       System.out.print("¿Cuántas personas deseas guardar? ");
-        int cantidadPersonas = scanner.nextInt();
-        scanner.nextLine(); // Limpiar el salto de línea
+        do {
 
-        for (int i = 0; i < cantidadPersonas; i++) {
-            System.out.println("Ingrese los datos para la persona " + (i + 1) + ":");
+            System.out.println("menu de opciones");
+            System.out.println("1- cargar datos");
+            System.out.println("2- ver los datos");
+            System.out.println("3- salir");
 
-            Persona nuevaPersona = new Persona();
-            //nuevaPersona.datosPersona();
-            //nuevaPersona.listaPersonas();
-            //nuevaPersona.mostrarListaPersonas();
-            //Persona.guardarPersonaEnArchivo(nuevaPersona);
-            nuevaPersona.encontrarPersona();
+            int opcion = entrada.nextInt();
+            entrada.nextLine();
 
-        }
+            switch (opcion){
+                case 1:
+                    persona.altaPersona();
+                    break;
+                case 2:
+
+                    break;
+
+                case 3:
+                    salir = true;
+                    System.out.println("saliendo del sistema");
+                    break;
+
+                case 4:
+                    System.out.println("opcion invalida");
+                    return;
+            }
+
+        } while (! salir);
 
     }
 }

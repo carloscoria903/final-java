@@ -7,7 +7,8 @@ public class Usuario extends Persona{
     private Persona propietario;
 
     public Usuario(int dni, boolean activo, String nombres, String apellidos, String telefono, String direccion, Provincia provincia, String localidad, LocalDate fechaNacimiento, Sexo sexo, String usuario, Persona propietario, String clave) {
-        super();
+        super(dni, activo, nombres, apellidos, telefono, direccion,
+                provincia, localidad, fechaNacimiento, sexo);
         this.usuario = usuario;
         this.propietario = propietario;
         this.clave = clave;
