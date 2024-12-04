@@ -5,7 +5,7 @@ public enum Provincia {
  CHUBUT("CHUBUT"),
  CORDOBA("CORDOBA"),
  CORRIENTES("CORRIENTE"),
- ENTRE_RIOS("ENTRE_RIOS"),
+ ENTRE_RIOS("ENTRE RIOS"),
  FORMOSA("FORMOSA"),
  JUJUY("JUJUY"),
  LA_PAMPA("LA PAMPA"),
@@ -21,7 +21,6 @@ public enum Provincia {
  TIERRA_DEL_FUEGO("TIERRA DEL FUEGO"),
  TUCUMAN("TUCUMAN");
 
-
  private String descripcionProvincia;
 
        Provincia(String descripcionProvincia){
@@ -32,7 +31,6 @@ public enum Provincia {
         return descripcionProvincia;
        }
 
-
       public static Provincia fromInt(int opcion) throws Excepciones {
 
        if (opcion < 1 || opcion > values().length) {
@@ -40,7 +38,5 @@ public enum Provincia {
        }
        return values()[opcion - 1];
       }
-
-
-
+      
 }

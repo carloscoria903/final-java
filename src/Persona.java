@@ -37,7 +37,6 @@ public class Persona {
 
     }//constructor vacio.
 
-
     public int getDni() {
         return dni;
     }
@@ -133,9 +132,8 @@ public class Persona {
 
 
     public void altaPersona(){
-        Scanner entrada = new Scanner(System.in);
 
-        Persona nuevaPersona = new Persona();
+        Scanner entrada = new Scanner(System.in);
 
         System.out.print("cuantas personas deseas guardar ");
         int cantidadPersonas = entrada.nextInt();
@@ -151,15 +149,18 @@ public class Persona {
             Persona personaExistente = buscarPersona(dni);
             if (personaExistente != null) {
                 System.out.println("la persona con DNI " + dni + " ya existe:");
+                System.out.println("nombre: " + getNombres());
+                System.out.println("apellido " + getApellidos());
                 continue;
             }
 
             System.out.println("ingrese nombre: ");
-            nuevaPersona.setNombres(entrada.nextLine());
+            String nombre = entrada.nextLine();
 
             System.out.println("ingrese apellido: ");
-            nuevaPersona.setApellidos(entrada.nextLine());
+            String apellido = entrada.nextLine();
 
+            Sexo sexo = null;
             do {
                 try {
                     System.out.println("seleccione el sexo:");
@@ -169,39 +170,40 @@ public class Persona {
                     }
                     System.out.print("elija una opcion (1-" + sexos.length + "): ");
                     int opcionSexo = entrada.nextInt();
-                    nuevaPersona.setSexo(Sexo.fromInt(opcionSexo));
-                    break; // salir del bucle si la entrada es valida
+                    sexo = Sexo.fromInt(opcionSexo);
+                    break;
                 } catch (InputMismatchException e) {
-                    System.out.println("error: debes ingresar un numero. intente otra vez");
-                    entrada.nextLine(); // limpiar entrada
+                    System.out.println("error: intente otra vez.");
+                    entrada.nextLine();
                 } catch (Excepciones e) {
                     System.out.println(e.getMessage());
                 }
-            } while(true);
+            } while (true);
             entrada.nextLine();
 
             System.out.println("ingrese numero de telefo: ");
-            nuevaPersona.setTelefono(entrada.nextLine());
+            String telefono = entrada.nextLine();
 
             System.out.println("ingrese direccion: ");
-            nuevaPersona.setDireccion(entrada.nextLine());
+            String direccion = entrada.nextLine();
 
             System.out.println("ingrese localidad: ");
-            nuevaPersona.setLocalidad(entrada.nextLine());
+            String localidad = entrada.nextLine();
 
+            Provincia provincia = null;
             do {
                 try {
                     System.out.println("seleccione la provincia:");
                     Provincia[] provincias = Provincia.values();
                     for (int k = 0; k < provincias.length; k++) {
-                        System.out.println((k + 1) + ". " + provincias[k]);
+                        System.out.println((k + 1) + ". " + provincias[k].optenerProvincia());
                     }
                     System.out.print("elija una opcion (1-" + provincias.length + "): ");
                     int opcionProvincia = entrada.nextInt();
-                    nuevaPersona.setProvincia(Provincia.fromInt(opcionProvincia));
-                    break; // salir del bucle si la entrada es valida
+                    provincia = Provincia.fromInt(opcionProvincia);
+                    break;
                 } catch (InputMismatchException e) {
-                    System.out.println("error ");
+                    System.out.println("error. ");
                     entrada.nextLine();
                 } catch (Excepciones e) {
                     System.out.println(e.getMessage());
@@ -225,75 +227,196 @@ public class Persona {
                 setFechaNacimiento(LocalDate.now());
             }
 
-            nuevaPersona.setDni(dni);
-            nuevaPersona.setNombres(nombres);
-            nuevaPersona.setApellidos(apellidos);
-            nuevaPersona.setSexo(sexo);
-            nuevaPersona.setTelefono(telefono);
-            nuevaPersona.setDireccion(direccion);
-            nuevaPersona.setLocalidad(localidad);
-            nuevaPersona.setProvincia(provincia);
-            nuevaPersona.setFechaNacimiento(fechaNacimiento);
-            nuevaPersona.setActivo(true);
 
+            Persona nuevaPersona = new Persona(dni,true,nombre,apellido,telefono,direccion,provincia,localidad,fechaNacimiento,sexo);
+            nuevaPersona.setActivo(true);
             listaPersonas.add(nuevaPersona);
             System.out.println("persona crada con exito");
         }
 
     }
 
-    public static void datosPersona(){
+    public void datosPersona(){
+        Scanner entrada = new Scanner(System.in);
 
+        System.out.println("ingrese DNI: ");
+        int buscarDni = entrada.nextInt();
+
+        Persona personaEncontrada = buscarPersona(buscarDni);
+        if (personaEncontrada != null) {
+            System.out.println("persona encontrada:");
+            System.out.println("--------------------------");
+            System.out.println("dni: " + personaEncontrada.getDni());
+            System.out.println("nombre: " + personaEncontrada.getNombres());
+            System.out.println("apellido: " + personaEncontrada.getApellidos());
+            System.out.println("teléfono: " + personaEncontrada.getTelefono());
+            System.out.println("dirección: " + personaEncontrada.getDireccion());
+            System.out.println("provincia: " + personaEncontrada.getProvincia());
+            System.out.println("localidad: " + personaEncontrada.getLocalidad());
+            System.out.println("fecha de nacimiento: " + personaEncontrada.getFechaNacimiento());
+            System.out.println("sexo: " + personaEncontrada.getSexo());
+            System.out.println("activo: " + (personaEncontrada.isActivo() ? "Sí" : "No"));
+        } else {
+            System.out.println("no se encontro el DNI ingresado.");
+        }
     }
 
-    /*public static void mostrarListaPersonas() {
+    public static void mostrarListaPersonas() {
         if (listaPersonas.isEmpty()) {
             System.out.println("No hay personas registradas.");
         } else {
             System.out.println("Lista de Personas:");
             for (Persona persona : listaPersonas) {
                 System.out.println("DNI: " + persona.getDni());
-                System.out.println("Nombre: " + persona.getNombres());
-                System.out.println("Apellido: " + persona.getApellidos());
-                System.out.println("Teléfono: " + persona.getTelefono());
-                System.out.println("Dirección: " + persona.getDireccion());
-                System.out.println("Provincia: " + persona.getProvincia());
-                System.out.println("Localidad: " + persona.getLocalidad());
-                System.out.println("Fecha de Nacimiento: " + persona.getFechaNacimiento());
-                System.out.println("Sexo: " + persona.getSexo());
-                System.out.println("Activo: " + persona.isActivo());
+                System.out.println("nombre: " + persona.getNombres());
+                System.out.println("apellido: " + persona.getApellidos());
+                System.out.println("telefono: " + persona.getTelefono());
+                System.out.println("direccion: " + persona.getDireccion());
+                System.out.println("provincia: " + persona.getProvincia());
+                System.out.println("localidad: " + persona.getLocalidad());
+                System.out.println("fecha de nacimiento: " + persona.getFechaNacimiento());
+                System.out.println("sexo: " + persona.getSexo());
+                System.out.println("activo: " + persona.isActivo());
                 System.out.println("--------------------------");
             }
         }
-    }*/
-
+    }
 
     public void modificarPersona(){
+            Scanner entrada = new Scanner(System.in);
 
+            System.out.print("ingrese el dni: ");
+            int dniBuscado = entrada.nextInt();
+            entrada.nextLine();
+
+            Persona personaEncontrada = buscarPersona(dniBuscado);
+
+            if (personaEncontrada == null) {
+                System.out.println("no se encontro el dni");
+                return;
+            }
+
+            int opcion;
+            do {
+                System.out.println("persona encontrada: ");
+                System.out.println("1. nombre: " + personaEncontrada.getNombres());
+                System.out.println("2. apellido: " + personaEncontrada.getApellidos());
+                System.out.println("3. telefono: " + personaEncontrada.getTelefono());
+                System.out.println("4. direccion: " + personaEncontrada.getDireccion());
+                System.out.println("5. provincia: " + personaEncontrada.getProvincia());
+                System.out.println("6. localidad: " + personaEncontrada.getLocalidad());
+                System.out.println("7. fecha de nacimiento: " + personaEncontrada.getFechaNacimiento());
+                System.out.println("8. sexo: " + personaEncontrada.getSexo());
+                System.out.println("9. salir");
+                System.out.print("que desea modificar (1-8): ");
+                opcion = entrada.nextInt();
+                entrada.nextLine();
+
+                switch (opcion) {
+                    case 1:
+                        System.out.print("ingrese el nuevo nombre: ");
+                        String nuevoNombre = entrada.nextLine();
+                        personaEncontrada.setNombres(nuevoNombre);
+                        break;
+                    case 2:
+                        System.out.print("ingrese el nuevo apellido: ");
+                        String nuevoApellido = entrada.nextLine();
+                        personaEncontrada.setApellidos(nuevoApellido);
+                        break;
+                    case 3:
+                        System.out.print("ingrese el nuevo telefono: ");
+                        String nuevoTelefono = entrada.nextLine();
+                        personaEncontrada.setTelefono(nuevoTelefono);
+                        break;
+                    case 4:
+                        System.out.print("ingrese la nueva direccion: ");
+                        String nuevaDireccion = entrada.nextLine();
+                        personaEncontrada.setDireccion(nuevaDireccion);
+                        break;
+                    case 5:
+                        System.out.println("seleccione la provincia: ");
+                        Provincia[] provincias = Provincia.values();
+                        for (int i = 0; i < provincias.length; i++) {
+                            System.out.println((i + 1) + ". " + provincias[i].optenerProvincia());
+                        }
+                        System.out.print("Ingrese la provincia: ");
+                        int opcionProvincia = entrada.nextInt();
+                        entrada.nextLine();
+                        try {
+                            Provincia nuevaProvincia = Provincia.fromInt(opcionProvincia);
+                            personaEncontrada.setProvincia(nuevaProvincia);
+                        } catch (Excepciones e) {
+                            System.out.println(e.getMessage());
+                        }
+                        break;
+                    case 6:
+                        System.out.print("ingrese la nueva localidad: ");
+                        String nuevaLocalidad = entrada.nextLine();
+                        personaEncontrada.setLocalidad(nuevaLocalidad);
+                        break;
+                    case 7:
+                        System.out.print("ingrese el nuevo día de nacimiento: ");
+                        int dia = entrada.nextInt();
+                        System.out.print("ingrese el nuevo mes de nacimiento: ");
+                        int mes = entrada.nextInt();
+                        System.out.print("ingrese el nuevo año de nacimiento: ");
+                        int anio = entrada.nextInt();
+                        try {
+                            LocalDate nuevaFechaNacimiento = LocalDate.of(anio, mes, dia);
+                            personaEncontrada.setFechaNacimiento(nuevaFechaNacimiento);
+                        } catch (DateTimeException e) {
+                            System.out.println("fecha no valida.");
+                        }
+                        entrada.nextLine();
+                        break;
+                    case 8:
+                        System.out.println("seleccione el nuevo sexo: ");
+                        Sexo[] sexos = Sexo.values();
+                        for (int i = 0; i < sexos.length; i++) {
+                            System.out.println((i + 1) + ". " + sexos[i].optenerSexo());
+                        }
+                        System.out.print("ingrese el sexo: ");
+                        int opcionSexo = entrada.nextInt();
+                        entrada.nextLine();
+                        try {
+                            Sexo nuevoSexo = Sexo.fromInt(opcionSexo);
+                            personaEncontrada.setSexo(nuevoSexo);
+                        } catch (Excepciones e) {
+                            System.out.println(e.getMessage());
+                        }
+                        break;
+                    case 9:
+                        System.out.println("saliendo del menu de modificacion...");
+                        break;
+                    default:
+                        System.out.println("opcion no valida.");
+                }
+            } while (opcion != 9);
+
+            System.out.println("cambios completados.");
     }
+
 
     public void bajaPersona(){
-
-    }
-
-    public void encontrarPersona(){
         Scanner entrada = new Scanner(System.in);
-        System.out.println("**********************************");
-        System.out.print("ingrese el DNI de la persona a buscar: ");
-        int dni = entrada.nextInt();
 
-        Persona personaEncontrada = buscarPersona(dni);
+        System.out.print("ingrese el dni: ");
+        int dniBuscado = entrada.nextInt();
+        entrada.nextLine();
 
-        if (personaEncontrada != null) {
-            System.out.println("persona encontrada:");
-            System.out.println("------------------------------------");
-            System.out.println("nombre: " + personaEncontrada.getNombres());
-            System.out.println("apellido: " + personaEncontrada.getApellidos());
-            System.out.println("direccion: " + personaEncontrada.getDireccion());
-        } else {
-            System.out.println("Persona no encontrada.");
+        Persona personaEncontrada = buscarPersona(dniBuscado);
+
+        if (personaEncontrada == null) {
+            System.out.println("no se encontro el dni ingresado.");
+            return;
         }
 
-    }
+        if (!personaEncontrada.isActivo()) {
+            System.out.println("la persona ya esta dada de baja.");
+            return;
+        }
 
+        personaEncontrada.setActivo(false);
+        System.out.println("la persona ha sido dada de baja exitosamente.");
+    }
 }
