@@ -18,6 +18,7 @@ public class Main {
 
         do {
 
+            System.out.println("------------------");
             System.out.println("menu de opciones");
             System.out.println("1- cargar datos");
             System.out.println("2- ver los datos");
@@ -29,6 +30,7 @@ public class Main {
             System.out.println("8- buscar empleado");
             System.out.println("9- mostrar lista de empleados");
             System.out.println("10- salir");
+            System.out.println("---------------------");
 
             int opcion = entrada.nextInt();
             entrada.nextLine();
@@ -71,6 +73,5 @@ public class Main {
             }
 
         } while (! salir);
-
     }
 }

@@ -20,6 +20,5 @@ public class Cliente extends Persona{
 
     //metodos personales de clientes
     public void verCuentaCorriente(){
-
     }
 }

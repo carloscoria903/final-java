@@ -8,13 +8,6 @@ public class CuentaCorriente {
         this.movimientos = movimientos;
     }
 
-    public ArrayList<Movimiento> getMovimientos() {
-        return movimientos;
-    }
-
-    public void setMobimientos(ArrayList<Movimiento> movimientos) {
-        this.movimientos = movimientos;
-    }
 
     //metodos personales de ctacte
     public void agregarMobimientos (Movimiento movimiento){

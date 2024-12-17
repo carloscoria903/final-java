@@ -1,3 +1,4 @@
+
 public enum Sexo {
     MASCULINO("Masculino"),
     FEMENINO("Femenino"),
@@ -9,7 +10,7 @@ public enum Sexo {
         this.descripcionSexo = descripcionSexo;
     }
 
-    public String optenerSexo(){
+    public String obtenerSexo(){
         return descripcionSexo;
     }
 
@@ -19,5 +20,4 @@ public enum Sexo {
         }
         return values()[opcion - 1];
     }
-
 }
