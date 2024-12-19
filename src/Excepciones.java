@@ -80,4 +80,31 @@ public class Excepciones extends Exception {
 
         return num;
     }
+
+    public static boolean verificarClave(String clave){
+        if (clave.length() < 8){
+            System.out.println("error, la clave debe tener al menos 8 caracteres: ");
+            return false;
+        }
+        boolean tieneMayuscula = false;
+        for (char c: clave.toCharArray()){
+            if (Character.isUpperCase(c)){
+                tieneMayuscula = true;
+                break;
+            }
+        }
+        if (!tieneMayuscula){
+            System.out.println("error, la clave debe tener una mayuscula por lo menos: ");
+            return false;
+        }
+        return true;
+    }
+
+    public static boolean verificarUsuario(String usuario){
+        if (usuario.length() < 8){
+            System.out.println("error, el usuario debe tener al menos 8 caracteres: ");
+            return false;
+        }
+        return true;
+    }
 }

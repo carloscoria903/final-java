@@ -20,7 +20,21 @@ public class Proveedor extends Persona{
 
     //metodo personal proveedor
     public void verCuentaCorriente(){
+        if (ctacte == null){
+            System.out.println("proveedor no tiene una cuanta corriente: ");
+            return;
+        }
 
+        System.out.println("moviminetos de la cuanta corriente: ");
+        for (Movimiento movimiento : ctacte.getMovimientos()){
+            System.out.println("codigo: " + movimiento.getCodigo());
+            System.out.println("detalle: " + movimiento.getDetalle());
+            System.out.println("monto debe: " + movimiento.getMontoDebe());
+            System.out.println("monto haber: " + movimiento.getMontoHaber());
+            System.out.println("saldo: " + movimiento.getSaldo());
+        }
+
+        double saldoActual = ctacte.optenerSaldo();
+        System.out.println("saldo actual: " + saldoActual);
     }
-
 }

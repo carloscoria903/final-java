@@ -102,7 +102,7 @@ public class Movimiento {
         movimientoExistente.setMontoDebe(montoDebe);
         movimientoExistente.setMontoHaber(montoHaber);
         movimientoExistente.setSaldo(saldo);
-        System.out.println("Movimiento modificado con éxito");
+        System.out.println("movimiento modificado con exito");
     }
 
     public void bajaMovimiento(){

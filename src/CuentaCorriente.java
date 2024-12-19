@@ -14,14 +14,24 @@ public class CuentaCorriente {
         movimientos.add(movimiento);
     }
 
-    public void actualizarSaldo(Movimiento movimientos){
-
+    public void actualizarSaldo(){
+        double saldo = 0.0;
+        for (Movimiento movimiento : movimientos){
+            saldo += movimiento.getMontoHaber();
+            saldo += movimiento.getMontoDebe();
+            movimiento.setSaldo(saldo);
+        }
     }
 
     public double optenerSaldo(){
-        double saldo = 0.0;
-
-        return saldo;
+        if (movimientos.isEmpty()){
+            return 0.0;
+        }
+        Movimiento ultimoMovimiento = movimientos.get(movimientos.size() - 1);
+        return ultimoMovimiento.getSaldo();
     }
 
+    public ArrayList<Movimiento> getMovimientos() {
+        return movimientos;
+    }
 }
