@@ -90,7 +90,6 @@ public class Producto {
                 return producto;
             }
         }
-        System.out.println("producto no encontrado.");
         return null;
     }
 
@@ -105,7 +104,7 @@ public class Producto {
             System.out.println(productoExistente.getDetalle());
         }
 
-        System.out.println("detalle del producto: ");
+        System.out.println("nombre del producto: ");
         String detalle = entrada.nextLine();
         double precio = Excepciones.castearDecimal("ingrese el precio del producto: ");
         System.out.println("ingrese la marca del producto: ");
@@ -158,6 +157,7 @@ public class Producto {
         Scanner entrada = new Scanner(System.in);
 
         int opciones;
+        boolean salir = false;
         do {
             System.out.println("producto encontrado: ");
             System.out.println("1- detalle: " + getDetalle());
@@ -166,6 +166,7 @@ public class Producto {
             System.out.println("4- material: " + getMaterial());
             System.out.println("5- categoria: " + getCategoria());
             System.out.println("6- stock: " + getStock());
+            System.out.println("7- salir");
             opciones = entrada.nextInt();
             entrada.nextLine();
 
@@ -207,12 +208,16 @@ public class Producto {
                     break;
                 case 6:
                     int stock = Excepciones.castearEntero("ingrese el nuevo stock del producto: ");
+                    break;
+                case 7:
+                    salir = true;
+                    System.out.println("saliendo del sistema: ");
+                    break;
                 default:
                     System.out.println("opcion no valida.");
-
-
+                    return;
             }
-        } while(opciones != 6);
+        } while(!salir);
 
         productoExistente.setDetalle(detalle);
         productoExistente.setPrecio(precio);
@@ -228,7 +233,7 @@ public class Producto {
         if (listaProducto.isEmpty()){
             System.out.println("no existe producto registrado");
         } else {
-            System.out.println("lista de producto: ");
+            System.out.println("producto: ");
             for (Producto producto : listaProducto){
                 System.out.println("detalle: " + producto.getDetalle());
                 System.out.println("precio: " + producto.getPrecio());
@@ -238,5 +243,45 @@ public class Producto {
                 System.out.println("stoct: " + producto.getStock());
             }
         }
+    }
+
+    public void menuProducto(){
+        Scanner entrada = new Scanner(System.in);
+        int opcion;
+        boolean salir = false;
+
+        do {
+            System.out.println("1- crear un producto: ");
+            System.out.println("2- eliminar un producto: ");
+            System.out.println("3- modificar un producto: ");
+            System.out.println("4- ver productos: ");
+            System.out.println("5- salir");
+            opcion = entrada.nextInt();
+            entrada.nextLine();
+
+            switch (opcion){
+
+                case 1:
+                    altaProducto();
+                    break;
+                case 2:
+                    bajaProducto();
+                    break;
+                case 3:
+                    modificarProducto();
+                    break;
+                case 4:
+                    verDetalleProducto();
+                    break;
+                case 5:
+                    salir = true;
+                    System.out.println("saliendo del sistema.. ");
+                    break;
+                default:
+                    System.out.println("opcion incorrecta");
+                    return;
+            }
+        } while (! salir);
+
     }
 }

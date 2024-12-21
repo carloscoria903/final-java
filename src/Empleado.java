@@ -146,21 +146,21 @@ public class Empleado extends Persona{
         }
 
         if (empleadoEncontrado != null) {
-            System.out.println("Empleado encontrado: ");
-            System.out.println("Nombre: " + empleadoEncontrado.getNombres());
-            System.out.println("Apellido: " + empleadoEncontrado.getApellidos());
-            System.out.println("Legajo: " + empleadoEncontrado.getLegajo());
-            System.out.println("Fecha de ingreso: " + empleadoEncontrado.getFechaIngreso());
-            System.out.println("Activo: " + empleadoEncontrado.isActivo());
+            System.out.println("empleado encontrado: ");
+            System.out.println("nombre: " + empleadoEncontrado.getNombres());
+            System.out.println("apellido: " + empleadoEncontrado.getApellidos());
+            System.out.println("legajo: " + empleadoEncontrado.getLegajo());
+            System.out.println("fecha de ingreso: " + empleadoEncontrado.getFechaIngreso());
+            System.out.println("activo: " + (empleadoEncontrado.isActivo() ? "si" : "no"));
         } else {
-            System.out.println("No se encontro el empleado");
+            System.out.println("no se encontro el empleado");
         }
 
     }
 
     public void mostrarListaEmpleado() {
         if (listaEmpleados.isEmpty()) {
-            System.out.println("No hay personas registradas.");
+            System.out.println("no hay personas registradas.");
         } else {
             for (Empleado empleado : listaEmpleados) {
                 System.out.println("DNI: " + empleado.getDni());
@@ -181,5 +181,44 @@ public class Empleado extends Persona{
                     System.out.println("--------------------------");
                 }
             }
+        }
+
+        public void menuEmpleado(){
+            Scanner entrada = new Scanner(System.in);
+            int opcion;
+            boolean salir = false;
+
+            do {
+                System.out.println("1- alta empleado: ");
+                System.out.println("2- baja empleado: ");
+                System.out.println("3- buscar empleado: ");
+                System.out.println("4- mostrar empleados: ");
+                System.out.println("5- salir: ");
+                opcion = entrada.nextInt();
+                entrada.nextLine();
+
+                switch (opcion){
+
+                    case 1:
+                        altaEmpleado();
+                        break;
+                    case 2:
+                        bajaEmpleado();
+                        break;
+                    case 3:
+                        buscarEmpleado();
+                        break;
+                    case 4:
+                        mostrarListaEmpleado();
+                        break;
+                    case 5:
+                        salir = true;
+                        System.out.println("saliendo del sistema..");
+                        break;
+                    default:
+                        System.out.println("opcion incorrecta.");
+                        return;
+                }
+            }while(!salir);
         }
     }

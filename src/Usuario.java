@@ -14,6 +14,10 @@ public class Usuario extends Persona{
         this.clave = clave;
     }
 
+    public Usuario(){
+
+    }
+
     private static ArrayList<Usuario>listaDeusuarios = new ArrayList<>();
 
     public String getUsuario() {
@@ -123,6 +127,7 @@ public class Usuario extends Persona{
             return;
         }
         int opcion;
+
         do {
             System.out.println("usuario encontrado: ");
             System.out.println("1- usuario: ");
@@ -162,4 +167,58 @@ public class Usuario extends Persona{
         }while (opcion != 2);
     }
 
+    public void mostrarUsuario(){
+        if (listaDeusuarios.isEmpty()){
+            System.out.println("no hay usuario para mostrar: ");
+        } else {
+            for (Usuario usuario : listaDeusuarios){
+                System.out.println("nombre: " + usuario.getNombres());
+                System.out.println("apellido: " + usuario.getApellidos());
+                System.out.println("nombre de usuario: " + usuario.getUsuario());
+            }
+        }
+
+
+
+    }
+
+    public void menuDeUsuario(){
+
+        Scanner entrada = new Scanner(System.in);
+        int opcion;
+        boolean salir = false;
+        do {
+            System.out.println("1- crear un usuario: ");
+            System.out.println("2- baja de usuario: ");
+            System.out.println("3- modificar usuario:");
+            System.out.println("4- ver usuario: ");
+            System.out.println("5- salir: ");
+            opcion = entrada.nextInt();
+            entrada.nextLine();
+
+            switch (opcion){
+
+                case 1:
+                    altaUsuario();
+                    break;
+                case 2:
+                    bajaUsuario();
+                    break;
+                case 3:
+                    modifiacarUsuario();
+                    break;
+                case 4:
+                     mostrarUsuario();
+                     break;
+                case 5:
+                    salir = true;
+                    System.out.println("saliendo del sistema");
+                    break;
+                default:
+                    System.out.println("opcion incorrecta");
+                    return;
+            }
+
+        }while (! salir);
+    }
 }

@@ -134,7 +134,7 @@ public class Persona {
     public void altaPersona() {
         Scanner entrada = new Scanner(System.in);
 
-        System.out.print("cuantas personas deseas guardar ");
+        System.out.print("cuantas personas deseas guardar: ");
         int cantidadPersonas = entrada.nextInt();
         entrada.nextLine();
 
@@ -147,7 +147,7 @@ public class Persona {
             if (personaExistente != null) {
                 System.out.println("la persona con DNI " + dni + " ya existe:");
                 System.out.println("nombre: " + personaExistente.getNombres());
-                System.out.println("apellido " + personaExistente.getApellidos());
+                System.out.println("apellido: " + personaExistente.getApellidos());
                 continue;
             }
 
@@ -277,18 +277,19 @@ public class Persona {
             }
 
             int opcion;
+            boolean salir = false;
             do {
                 System.out.println("persona encontrada: ");
-                System.out.println("1. nombre: " + personaEncontrada.getNombres());
-                System.out.println("2. apellido: " + personaEncontrada.getApellidos());
-                System.out.println("3. telefono: " + personaEncontrada.getTelefono());
-                System.out.println("4. direccion: " + personaEncontrada.getDireccion());
-                System.out.println("5. provincia: " + personaEncontrada.getProvincia().obtenerProvincia());
-                System.out.println("6. localidad: " + personaEncontrada.getLocalidad());
-                System.out.println("7. fecha de nacimiento: " + personaEncontrada.getFechaNacimiento());
-                System.out.println("8. sexo: " + personaEncontrada.getSexo().obtenerSexo());
-                System.out.println("9. salir");
-                System.out.print("que desea modificar (1-8): ");
+                System.out.println("1- nombre: " + personaEncontrada.getNombres());
+                System.out.println("2- apellido: " + personaEncontrada.getApellidos());
+                System.out.println("3- telefono: " + personaEncontrada.getTelefono());
+                System.out.println("4- direccion: " + personaEncontrada.getDireccion());
+                System.out.println("5- provincia: " + personaEncontrada.getProvincia().obtenerProvincia());
+                System.out.println("6- localidad: " + personaEncontrada.getLocalidad());
+                System.out.println("7- fecha de nacimiento: " + personaEncontrada.getFechaNacimiento());
+                System.out.println("8- sexo: " + personaEncontrada.getSexo().obtenerSexo());
+                System.out.println("9- activo: " + (personaEncontrada.isActivo() ? "si" : "no" ));
+                System.out.println("10- salir");
                 opcion = entrada.nextInt();
                 entrada.nextLine();
 
@@ -354,16 +355,25 @@ public class Persona {
                         }
                         break;
                     case 9:
-                        System.out.println("saliendo del menu de modificacion...");
+                        System.out.println("ingrese 'SI' para cambiar el estado de la persona: ");
+                        System.out.println("la persona esta activa : " + (personaEncontrada.isActivo() ? "si" : "no"));
+                        String respuesta = entrada.nextLine();
+                        if (respuesta.equalsIgnoreCase("si")){
+                            personaEncontrada.setActivo(!personaEncontrada.isActivo());
+                            System.out.println("cambiado el estado de la persona");
+                        }
+                        break;
+                    case 10:
+                        salir = true;
+                        System.out.println("saliendo del menu de modificacion");
                         break;
                     default:
                         System.out.println("opcion no valida.");
                 }
-            } while (opcion != 9);
+            } while (! salir);
 
             System.out.println("cambios completados.");
     }
-
 
     public void bajaPersona(){
         Scanner entrada = new Scanner(System.in);
@@ -385,4 +395,53 @@ public class Persona {
         personaEncontrada.setActivo(false);
         System.out.println("la persona ha sido dada de baja exitosamente.");
     }
+
+    public void menuPersona(){
+        Scanner entrada = new Scanner(System.in);
+        int opcion;
+        boolean salir = false;
+        do {
+            System.out.println("1- crear persona: ");
+            System.out.println("2- mostrar los datos de personas: ");
+            System.out.println("3- mostrar los datos de una persona: ");
+            System.out.println("4- modificar los datos: ");
+            System.out.println("5- dar de baja a una persona: ");
+            System.out.println("6- salir");
+            opcion = entrada.nextInt();
+            entrada.nextLine();
+
+            switch(opcion){
+
+                case 1:
+                    altaPersona();
+                    break;
+
+                case 2:
+                    mostrarListaPersonas();
+                    break;
+
+                case 3:
+                    datosPersona();
+                    break;
+
+                case 4:
+                    modificarPersona();
+                    break;
+
+                case 5:
+                    bajaPersona();
+                    break;
+
+                case 6:
+                    salir = true;
+                    System.out.println("saliendo del sistema: ");
+                    break;
+
+                default:
+                    System.out.println("opcion invalida: ");
+                    return;
+            }
+        } while (!salir);
+    }
+
 }
