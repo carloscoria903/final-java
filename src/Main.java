@@ -13,6 +13,7 @@ public class Main {
         Empleado empleado = new Empleado();
         Usuario usuario = new Usuario();
         Producto producto = new Producto();
+        Venta venta = new Venta();
         Scanner entrada = new Scanner(System.in);
         boolean salir = false;
         do {
@@ -21,7 +22,8 @@ public class Main {
             System.out.println("2- menu de empleado: ");
             System.out.println("3- menu de usuarios: ");
             System.out.println("4- menu de producto: ");
-            System.out.println("5- salir");
+            System.out.println("5- menu de ventas: ");
+            System.out.println("6- salir");
             int opcion = entrada.nextInt();
             entrada.nextLine();
 
@@ -39,6 +41,8 @@ public class Main {
                     producto.menuProducto();
                     break;
                 case 5:
+                    venta.menuVenta();
+                case 6:
                     salir = true;
                     System.out.println("saliendo del sistema");
                     break;

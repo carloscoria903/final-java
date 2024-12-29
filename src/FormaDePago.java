@@ -11,7 +11,7 @@ public enum FormaDePago {
         this.descripcion = descripcion;
     }
 
-    private String  optenerFormaDePago(){
+    public String  optenerFormaDePago(){
         return descripcion;
     }
     public static FormaDePago fromInt(int opcion) throws Excepciones {

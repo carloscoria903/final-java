@@ -10,6 +10,10 @@ public class Cliente extends Persona{
         this.ctacte = ctacte;
     }
 
+    public  Cliente(){
+
+    }//costructor vacio.
+
     public CuentaCorriente getCtacte() {
         return ctacte;
     }
@@ -35,4 +39,9 @@ public class Cliente extends Persona{
         double saldoActual = ctacte.optenerSaldo();
         System.out.println("saldo actual: " + saldoActual);
     }
+
+    public void verCliente(){
+
+    }
+
 }
