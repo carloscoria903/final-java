@@ -119,6 +119,8 @@ public class Usuario extends Persona{
 
     public void modifiacarUsuario(){
         Scanner entrada = new Scanner(System.in);
+        int opcion;
+        boolean salir = false;
 
         int dni = Excepciones.castearEntero("ingrese el dni: ");
         Usuario usuarioExistente = buscarUsuario(dni);
@@ -126,17 +128,15 @@ public class Usuario extends Persona{
             System.out.println("no se encontro el usuario: ");
             return;
         }
-        int opcion;
-
         do {
             System.out.println("usuario encontrado: ");
             System.out.println("1- usuario: ");
             System.out.println("2- clave: ");
+            System.out.println("3- salir");
             opcion = entrada.nextInt();
             entrada.nextLine();
 
             switch (opcion){
-
                 case 1:
                     String usuarioNuevo;
                     boolean flag = false;
@@ -146,8 +146,9 @@ public class Usuario extends Persona{
                         if (Excepciones.verificarUsuario(usuarioNuevo)){
                             flag = true;
                         }
-                    }while (!flag);
-                    return;
+                    }while (! flag);
+
+                    break;
 
                 case 2:
                     String claveNueva;
@@ -158,13 +159,20 @@ public class Usuario extends Persona{
                         if (Excepciones.verificarClave(claveNueva)){
                             flag = true;
                         }
-                    }while (!flag);
-                    return;
+                    }while (! flag);
+
+                    break;
+
+                case 3:
+                    salir = true;
+                    System.out.println("saliendo del sistema");
+                    break;
 
                 default:
                     System.out.println("opcion incorrecta: ");
+                    return;
             }
-        }while (opcion != 2);
+        }while (! salir);
     }
 
     public void mostrarUsuario(){
@@ -177,9 +185,6 @@ public class Usuario extends Persona{
                 System.out.println("nombre de usuario: " + usuario.getUsuario());
             }
         }
-
-
-
     }
 
     public void menuDeUsuario(){

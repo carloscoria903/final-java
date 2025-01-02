@@ -20,7 +20,7 @@ public class Movimiento {
 
     }
 
-    private static ArrayList<Movimiento>ListaMovimiento = new ArrayList<>();
+    private static ArrayList<Movimiento>listaMovimiento = new ArrayList<>();
 
     public int getCodigo() {
         return codigo;
@@ -64,9 +64,31 @@ public class Movimiento {
 
     //metodos personales de movimiento
 
+    public Movimiento busquedaMovimiento(int codigo){
+        for (Movimiento movimiento : listaMovimiento){
+            if (movimiento.getCodigo() == codigo){
+                return movimiento;
+            }
+        }
+        return null;
+    }
+
     public Movimiento altaMovimiento(){
         Scanner entrada = new Scanner(System.in);
+
         int codigo = Excepciones.castearEntero("ingrese el codigo de movimiento: ");
+
+        Movimiento movimientoExistente = busquedaMovimiento(codigo);
+        if (movimientoExistente != null){
+            System.out.println("el movimineto " + codigo + "ya existe: ");
+            System.out.println("desea crear un nuevo movimiento?? (si / no): ");
+            String respuesta = entrada.nextLine();
+            if (respuesta.equalsIgnoreCase("no")){
+                System.out.println("movimiento no creado: ");
+                return null;
+            }
+        }
+
         System.out.println("detalles del movimineto");
         String detalle = entrada.nextLine();
         double montoDebe = Excepciones.castearDecimal("ingrese el monto del debe: ");
@@ -74,7 +96,7 @@ public class Movimiento {
         double saldo = Excepciones.castearDecimal("ingrese el saldo: ");
 
         Movimiento nuevoMovimiento = new Movimiento(codigo,detalle,montoDebe,montoHaber,saldo);
-        ListaMovimiento.add(nuevoMovimiento);
+        listaMovimiento.add(nuevoMovimiento);
         System.out.println("movimiento creado con exito");
 
         return nuevoMovimiento;
@@ -84,7 +106,7 @@ public class Movimiento {
         Scanner entrada = new Scanner(System.in);
         int codigo = Excepciones.castearEntero("ingrese el codigo del movimiento: ");
         Movimiento movimientoExistente = null;
-        for (Movimiento movimiento : ListaMovimiento) {
+        for (Movimiento movimiento : listaMovimiento) {
             if (movimiento.getCodigo() == codigo) {
                 movimientoExistente = movimiento;
                 break;
@@ -109,7 +131,7 @@ public class Movimiento {
         Scanner entrada = new Scanner(System.in);
         int codigo = Excepciones.castearEntero("ingrese el codigo del movimiento a eliminar: ");
         Movimiento movimientoExistente = null;
-        for (Movimiento movimiento : ListaMovimiento){
+        for (Movimiento movimiento : listaMovimiento){
             if (movimiento.getCodigo() == codigo){
                 movimientoExistente = movimiento;
                 break;
@@ -119,7 +141,43 @@ public class Movimiento {
             System.out.println("no se encontro el movimiento con el codigo ingresado.");
             return;
         }
-        ListaMovimiento.remove(movimientoExistente);
+        listaMovimiento.remove(movimientoExistente);
         System.out.println("movimiento eliminado");
+    }
+
+    public void menuMovimiento(){
+        Scanner entrada = new Scanner(System.in);
+        int opcion;
+        boolean salir = false;
+
+        do {
+            System.out.println("1- crear un movimiento: ");
+            System.out.println("2- modificar un movimiento: ");
+            System.out.println("3- dar de baja un movimiento: ");
+            System.out.println("4- salir");
+            opcion = entrada.nextInt();
+            entrada.nextLine();
+
+            switch (opcion){
+                case 1:
+                    altaMovimiento();
+                    break;
+                case 2:
+                    modificarMovimiento();
+                    break;
+                case 3:
+                    bajaMovimiento();
+                    break;
+                case 4:
+                    salir = true;
+                    System.out.println("saliendo del sistema");
+                    break;
+                default:
+                    System.out.println("opcion incorrecta");
+                    return;
+            }
+
+        }while(! salir);
+
     }
 }

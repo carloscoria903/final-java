@@ -10,6 +10,10 @@ public class Proveedor extends Persona{
         this.ctacte = ctacte;
     }
 
+    public Proveedor(){
+
+    }//constructor vacio.
+
     public CuentaCorriente getCtacte() {
         return ctacte;
     }
@@ -19,6 +23,7 @@ public class Proveedor extends Persona{
     }
 
     //metodo personal proveedor
+
     public void verCuentaCorriente(){
         if (ctacte == null){
             System.out.println("proveedor no tiene una cuanta corriente: ");
@@ -34,7 +39,7 @@ public class Proveedor extends Persona{
             System.out.println("saldo: " + movimiento.getSaldo());
         }
 
-        double saldoActual = ctacte.optenerSaldo();
+        double saldoActual = ctacte.obtenerSaldo();
         System.out.println("saldo actual: " + saldoActual);
     }
 }

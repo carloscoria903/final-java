@@ -99,9 +99,15 @@ public class Producto {
         int codigo = Excepciones.castearEntero("ingrese el coigo del producto: ");
 
         Producto productoExistente = busquedaProducto(codigo);
+
         if (productoExistente != null){
             System.out.println("el producto " + codigo + "ya existe ");
             System.out.println(productoExistente.getDetalle());
+            System.out.println("quiere agregar otro producto? (si no)");
+            String respuesta = entrada.nextLine();
+            if (respuesta.equalsIgnoreCase("no")){
+                return null;
+            }
         }
 
         System.out.println("nombre del producto: ");

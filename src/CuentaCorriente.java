@@ -2,15 +2,15 @@ import java.util.ArrayList;
 
 public class CuentaCorriente {
 
-    private ArrayList<Movimiento> movimientos = new ArrayList<>();
+    private ArrayList<Movimiento> movimientos;
 
     public CuentaCorriente(ArrayList<Movimiento> movimientos) {
         this.movimientos = movimientos;
     }
 
-
     //metodos personales de ctacte
-    public void agregarMobimientos (Movimiento movimiento){
+
+    public void agregarMovimientos (Movimiento movimiento){
         movimientos.add(movimiento);
     }
 
@@ -18,12 +18,12 @@ public class CuentaCorriente {
         double saldo = 0.0;
         for (Movimiento movimiento : movimientos){
             saldo += movimiento.getMontoHaber();
-            saldo += movimiento.getMontoDebe();
+            saldo -= movimiento.getMontoDebe();
             movimiento.setSaldo(saldo);
         }
     }
 
-    public double optenerSaldo(){
+    public double obtenerSaldo(){
         if (movimientos.isEmpty()){
             return 0.0;
         }

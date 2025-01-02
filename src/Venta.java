@@ -91,25 +91,35 @@ public class Venta {
         Venta ventaExistente = busquedaDeVentas(codigo);
         if (ventaExistente != null){
             System.out.println("el codigo ingresado pertenece a la venta " + codigo + " :" );
+            System.out.println("quiere crear una nueva venta?? (si /no)");
+            String respuesta = entrada.nextLine();
+            if (respuesta.equalsIgnoreCase("no")){
+                System.out.println("no se creara ninguna venta nueva");
+                return null;
+            }
         }
 
         System.out.println("datos del cliente: ");
         Cliente cliente = new Cliente();
-        cliente.verCuentaCorriente();
+        cliente.altaCliente();
 
         Producto[] productos = new Producto[10];
         int cantidad = 0;
-        for(int i = 0; i < 10; i ++) {
-            System.out.println("ingrese la cantidad de productos: ");
-            productos[i] = new Producto().altaProducto();
-            cantidad++;
-            System.out.println("desea agregar otro producto? (si/no): ");
-            String respuesta = entrada.nextLine();
-            if (respuesta.equalsIgnoreCase("no")) {
-                break;
+        do {
+            System.out.println("ingrese detalle del producto: ");
+            productos[cantidad] = new Producto().altaProducto();
+
+            if(cantidad < 10){
+                System.out.println("quiere agregar otro producto? (si / no): ");
+                String respuesta = entrada.nextLine();
+                if (respuesta.equalsIgnoreCase("no")){
+                    break;
+                }
             }
-        }
+        }while(cantidad < 10);
+
             double total = 0;
+
             for (int j = 0; j < cantidad; j ++) {
                 total += productos[j].getPrecio();
             }
@@ -234,7 +244,7 @@ public class Venta {
         }
         System.out.println("detalle de la venta: ");
         System.out.println("codigo: " + ventaExistente.getCodigo());
-        System.out.println("cuenta corriente: " + ventaExistente.getCliente());
+        System.out.println("cuenta corriente: " + ventaExistente.getCliente().getNombres());
         Producto[] productos = ventaExistente.getProducto();
         if (productos != null){
             System.out.println("cantidad de producto: " + productos.length);
@@ -288,5 +298,4 @@ public class Venta {
             }
         }while(! salir);
     }
-
 }
